@@ -1,4 +1,4 @@
-package com.armaan.coffeemasters
+package com.armaan.coffeemasters.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.armaan.coffeemasters.R
 import com.armaan.coffeemasters.ui.theme.Alternative2
 
 //  comp+tab -> snippet for a composable function

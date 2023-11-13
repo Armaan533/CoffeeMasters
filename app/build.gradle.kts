@@ -48,6 +48,16 @@ android {
 
 dependencies {
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.7.1")
+    // OkHttp
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
+    // JSON Converter
+    implementation("com.squareup.retrofit2:converter-gson:2.7.1")
+
+    // AsyncImage
+    implementation("io.coil-kt:coil-compose:2.0.0-rc03")
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")

@@ -1,9 +1,12 @@
 package com.armaan.coffeemasters
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -21,7 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.OnPrimary
+import com.armaan.coffeemasters.ui.theme.Primary
+import com.armaan.coffeemasters.ui.theme.Ternary
 
 data class NavPage(var name: String, var icon: ImageVector, var route: String)
 
@@ -42,15 +46,25 @@ fun NavBarItem_Prev() {
     NavBarItem(page = Routes.MenuPage, modifier = Modifier.padding(8.dp))
 }
 
-@Preview
+
 @Composable
-fun NavBar(selectedRoute: String = Routes.MenuPage.route) {
-    Row {
+fun NavBar(selectedRoute: String,
+           onChange: (String)->Unit
+           ) {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Primary)
+            .padding(16.dp)
+    ) {
         for(page in Routes.pages){
             NavBarItem(
                 page = page,
                 selected = selectedRoute == page.route,
-                modifier = Modifier.clickable {  }
+                modifier = Modifier.clickable {
+                    onChange(page.route)
+                }
                 )
         }
     }
@@ -61,7 +75,7 @@ fun NavBarItem(page: NavPage, selected: Boolean = false, modifier: Modifier = Mo
     Column(horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(horizontal = 12.dp)) {
         Image(imageVector = page.icon, contentDescription = page.name, colorFilter = ColorFilter.tint(
-            if (selected) Alternative1 else OnPrimary
+            if (selected) Alternative1 else Ternary
         ),
             modifier = Modifier
                 .padding(bottom = 8.dp)
@@ -69,7 +83,7 @@ fun NavBarItem(page: NavPage, selected: Boolean = false, modifier: Modifier = Mo
         )
         Text(text = page.name,
             fontSize = 12.sp,
-            color = if (selected) Alternative1 else OnPrimary
+            color = if (selected) Alternative1 else Ternary
             )
     }
 }
