@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,10 +36,8 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 //@Preview
 @Composable
-fun MenuPage(dataManager: DataManager, padding: PaddingValues) {
-    LazyColumn(
-        modifier = Modifier.padding(padding)
-    ){
+fun MenuPage(dataManager: DataManager) {
+    LazyColumn(){
         items(dataManager.menu) {
             Divider()
             Box(

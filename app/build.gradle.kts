@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.armaan.coffeemasters"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.armaan.coffeemasters"
@@ -47,6 +47,10 @@ android {
 }
 
 dependencies {
+
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.7.1")

@@ -64,8 +64,14 @@ fun OrderPage(dataManager: DataManager, padding: PaddingValues) {
                         .padding(16.dp)
                         .fillMaxWidth()
                 ){
-                    Text(text = "Total Amount")
-
+                    Text(
+                        text = "Total Amount",
+                        modifier = Modifier.width(150.dp)
+                    )
+                    Text(
+                        text = "$${totalSum(dataManager.cart).format(2)}",
+                        modifier = Modifier.width(50.dp)
+                    )
                 }
             }
         }
@@ -90,11 +96,13 @@ fun CartItem(it: ItemInCart, onDelete: (Product)->Unit) {
             .padding(16.dp)
             .fillMaxWidth()
     ){
-        Text(text = "${it.quantity}x")
         Text(
             text = it.product.name,
             modifier = Modifier.width(150.dp)
         )
+
+        Text(text = "x${it.quantity}")
+
         Text(
             text = "$${(it.quantity * it.product.price).format(2)}",
             modifier = Modifier.width(50.dp)
