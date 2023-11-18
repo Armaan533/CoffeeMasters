@@ -17,8 +17,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,16 +30,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.armaan.coffeemasters.CustomSnackbar
 import com.armaan.coffeemasters.DataManager
 import com.armaan.coffeemasters.Product
 import com.armaan.coffeemasters.ui.theme.Alternative1
 import com.armaan.coffeemasters.ui.theme.Primary
+import kotlinx.coroutines.launch
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 //@Preview
 @Composable
-fun MenuPage(dataManager: DataManager) {
+fun MenuPage(dataManager: DataManager, snackbarHostState: SnackbarHostState) {
+    val scope = rememberCoroutineScope()
+
     LazyColumn(){
         items(dataManager.menu) {
             Divider()
@@ -66,11 +73,20 @@ fun MenuPage(dataManager: DataManager) {
                 ) {
                     ProductItem(product = product, onAdd = {
                         dataManager.cartAdd(product)
-                    })
+                         scope.launch{
+                            snackbarHostState.showSnackbar(
+                                message = "${product.name} added successfully to your cart",
+                                actionLabel = "Hide",
+                                duration = SnackbarDuration.Short
+                            )
+                        }
+                    },
+                        )
                 }
             }
         }
     }
+    CustomSnackbar(snackbarHostState = snackbarHostState)
 }
 
 //@Preview
@@ -105,7 +121,9 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
                 Text(text = "$${product.price.format(2)} ea")
             }
             Button(
-                onClick = {onAdd(product)},
+                onClick = {
+                    onAdd(product)
+                          },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Alternative1,
                     contentColor = Color.White

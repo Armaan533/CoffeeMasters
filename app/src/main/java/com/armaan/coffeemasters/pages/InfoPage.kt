@@ -3,7 +3,6 @@ package com.armaan.coffeemasters.pages
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 
@@ -25,6 +24,6 @@ fun AppWebView() {
 }
 
 @Composable
-fun InfoPage(padding: PaddingValues) {
+fun InfoPage() {
     AppWebView()
 }

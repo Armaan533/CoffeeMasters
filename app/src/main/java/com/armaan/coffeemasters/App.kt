@@ -12,6 +12,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -48,6 +49,9 @@ import com.armaan.coffeemasters.ui.theme.Primary
 fun App(dataManager: DataManager) {
     val selectedRoute = remember {
         mutableStateOf("menu")
+    }
+    val snackbarHostState = remember {
+        SnackbarHostState()
     }
 
     val navController = rememberNavController()
@@ -118,16 +122,22 @@ fun App(dataManager: DataManager) {
             modifier = Modifier.padding(paddingValues = paddingVal)
         ) {
             composable(Routes.MenuPage.route) {
-                MenuPage(dataManager = dataManager)
+                MenuPage(
+                    dataManager = dataManager,
+                    snackbarHostState = snackbarHostState
+                )
             }
             composable(Routes.OffersPage.route) {
-                OffersPage(padding = paddingVal)
+                OffersPage()
             }
             composable(Routes.InfoPage.route) {
-                InfoPage(padding = paddingVal)
+                InfoPage()
             }
             composable(Routes.OrdersPage.route) {
-                OrderPage(dataManager = dataManager, padding = paddingVal)
+                OrderPage(
+                    dataManager = dataManager,
+                    navController = navController
+                )
             }
 
         }

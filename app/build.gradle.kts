@@ -47,7 +47,8 @@ android {
 }
 
 dependencies {
-
+    //Constraint Layout
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
@@ -62,9 +63,9 @@ dependencies {
     // AsyncImage
     implementation("io.coil-kt:coil-compose:2.0.0-rc03")
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

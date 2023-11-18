@@ -16,6 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         var dataManager = ViewModelProvider(this).get(DataManager::class.java)
 
+
         setContent {
             CoffeeMastersTheme {
                 // A surface container using the 'background' color from the theme

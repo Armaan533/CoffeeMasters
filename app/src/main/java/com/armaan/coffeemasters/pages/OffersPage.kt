@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,11 +34,10 @@ import com.armaan.coffeemasters.ui.theme.Alternative2
 
 //@Preview(showBackground = true)
 @Composable
-fun OffersPage(padding: PaddingValues) {
+fun OffersPage() {
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
-            .padding(padding)
     ) {
         Offer(title = "Early Coffee", description = "10% off. Offer valid from 6am to 9am.")
         Offer(title = "Welcome Gift", description = "25% off on your first order.")
