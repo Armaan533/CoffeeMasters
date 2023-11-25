@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "70568099339",
+    "firebase_url": "https://coffeemasters-d134f-default-rtdb.firebaseio.com",
+    "project_id": "coffeemasters-d134f",
+    "storage_bucket": "coffeemasters-d134f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70568099339:android:4f5609533b37ea2499910e",
+        "android_client_info": {
+          "package_name": "com.armaan.coffeemasters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70568099339-b0kdrq02udg31k62gup119tk8cd6j5ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqyUIYlyqXnKqH26jR2EKgcfxlFvWbM8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70568099339-b0kdrq02udg31k62gup119tk8cd6j5ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

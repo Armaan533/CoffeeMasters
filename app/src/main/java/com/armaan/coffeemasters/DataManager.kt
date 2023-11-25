@@ -43,16 +43,17 @@ class DataManager(app: Application): AndroidViewModel(app) {
     fun cartRemove(product: Product) {
         val aux = cart.toMutableList()
         var multiple = false
-        aux.forEach {
+        var q = 0
+        cart.forEach {
             if (product.id == it.product.id && it.quantity > 1) {
-                it.quantity -= 1
+                q = it.quantity
                 multiple = true
             }
         }
-
-        if(!multiple) {
-            aux.removeAll{it.product.id == product.id}
-        }
-        cart = listOf(*aux.toTypedArray())
+        aux.removeAll{it.product.id == product.id}
+        cart = if(!multiple)
+            listOf(*aux.toTypedArray())
+        else
+            listOf(*aux.toTypedArray(), ItemInCart(product, q-1))
     }
 }
