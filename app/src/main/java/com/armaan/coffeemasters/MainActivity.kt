@@ -9,13 +9,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.armaan.coffeemasters.sign_in.AuthUIClient
 import com.armaan.coffeemasters.ui.theme.CoffeeMastersTheme
+import com.google.android.gms.auth.api.identity.Identity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var dataManager = ViewModelProvider(this).get(DataManager::class.java)
-
+        var dataManager = ViewModelProvider(this)[DataManager::class.java]
+        val authUIClient by lazy {
+            AuthUIClient(
+                context = applicationContext,
+                googleOneTapClient =Identity.getSignInClient(applicationContext)
+            )
+        }
 
         setContent {
             CoffeeMastersTheme {
@@ -24,7 +32,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    App(dataManager)
+                    App(
+                        dataManager,
+                        authUIClient,
+                        lifecycleScope,
+                        applicationContext
+                    )
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.armaan.coffeemasters
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.ShoppingCart
@@ -16,8 +17,10 @@ object Routes {
     val OffersPage = NavPage("Offers", Icons.Outlined.Star, "star")
     val OrdersPage = NavPage("My orders", Icons.Outlined.ShoppingCart, "shoppingCart")
     val InfoPage = NavPage("Info", Icons.Outlined.Info, "info")
+    val ProfilePage = NavPage("Profile", Icons.Outlined.AccountCircle, "profile")
+    val SignInPage = NavPage("SignIn", Icons.Outlined.AccountCircle, "signin")
 
-    val pages = listOf(MenuPage, OffersPage, OrdersPage, InfoPage)
+    val pages = listOf(MenuPage, OffersPage, OrdersPage, ProfilePage)
 }
 
 //@Preview

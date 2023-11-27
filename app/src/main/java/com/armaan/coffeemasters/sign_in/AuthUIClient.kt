@@ -1,5 +1,6 @@
 package com.armaan.coffeemasters.sign_in
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
@@ -13,7 +14,8 @@ import com.google.firebase.auth.auth
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.CancellationException
 
-class AuthUIClient (
+@SuppressLint("StaticFieldLeak")
+class AuthUIClient(
     private val context: Context,
     private val googleOneTapClient: SignInClient
 ){

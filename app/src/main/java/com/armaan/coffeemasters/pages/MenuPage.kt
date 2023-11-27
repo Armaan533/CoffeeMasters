@@ -29,10 +29,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.armaan.coffeemasters.CustomSnackbar
 import com.armaan.coffeemasters.DataManager
 import com.armaan.coffeemasters.Product
+import com.armaan.coffeemasters.Routes
+import com.armaan.coffeemasters.sign_in.AuthUIClient
 import com.armaan.coffeemasters.ui.theme.Alternative1
 import com.armaan.coffeemasters.ui.theme.Primary
 import kotlinx.coroutines.launch
@@ -41,10 +44,15 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 //@Preview
 @Composable
-fun MenuPage(dataManager: DataManager, snackbarHostState: SnackbarHostState) {
+fun MenuPage(
+    dataManager: DataManager,
+    snackbarHostState: SnackbarHostState,
+    authUIClient: AuthUIClient,
+    navController: NavHostController
+) {
     val scope = rememberCoroutineScope()
 
-    LazyColumn(){
+    LazyColumn{
         items(dataManager.menu) {
             Divider()
             Box(
@@ -72,13 +80,18 @@ fun MenuPage(dataManager: DataManager, snackbarHostState: SnackbarHostState) {
                         .padding(12.dp)
                 ) {
                     ProductItem(product = product, onAdd = {
-                        dataManager.cartAdd(product)
-                         scope.launch{
-                            snackbarHostState.showSnackbar(
-                                message = "${product.name} added successfully to your cart",
-                                actionLabel = "Hide",
-                                duration = SnackbarDuration.Short
-                            )
+                        if(authUIClient.getSignedInUser() != null) {
+                            dataManager.cartAdd(product)
+                             scope.launch{
+                                snackbarHostState.showSnackbar(
+                                    message = "${product.name} added successfully to your cart",
+                                    actionLabel = "Hide",
+                                    duration = SnackbarDuration.Short
+                                )
+                        }
+                        }
+                        else {
+                            navController.navigate(Routes.SignInPage.route)
                         }
                     },
                         )
