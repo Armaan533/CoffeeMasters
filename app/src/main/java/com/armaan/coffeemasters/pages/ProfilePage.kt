@@ -2,7 +2,7 @@ package com.armaan.coffeemasters.pages
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,12 +32,12 @@ fun ProfilePage(
     userData: UserData?,
     onSignOut: () -> Unit
 ) {
-    Card(
+    ElevatedCard(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(12.dp)
             .background(Alternative2),
-        shape = RoundedCornerShape(12.dp)
+        shape = RoundedCornerShape(20.dp)
     ) {
         if(userData?.pfpUrl != null) {
             AsyncImage(

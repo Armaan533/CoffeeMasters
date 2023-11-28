@@ -24,6 +24,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,6 +36,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.armaan.coffeemasters.pages.InfoPage
 import com.armaan.coffeemasters.pages.MenuPage
@@ -75,6 +77,7 @@ fun App(
     }
 
     val navController = rememberNavController()
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
 
     Scaffold (
         topBar = {
@@ -92,13 +95,13 @@ fun App(
 //                newRoute ->
 //                selectedRoute.value = newRoute
 //            })
-            if (navController.currentBackStackEntry?.destination?.route != Routes.SignInPage.route) {
+            if (currentBackStackEntry?.destination?.route != Routes.SignInPage.route) {
                 NavigationBar (
                     containerColor = MaterialTheme.colorScheme.primary
                 ){
                     Routes.pages.forEach{navItem ->
                         NavigationBarItem(
-                            selected = selectedRoute.value == navItem.route,
+                            selected = currentBackStackEntry?.destination?.route == navItem.route,
                             label = {
                                     Text(text = navItem.name)
                             },
@@ -210,6 +213,9 @@ fun App(
                                 ).build()
                             )
                         }
+                    },
+                    onSkipClick = {
+                        navController.navigate(Routes.MenuPage.route)
                     }
                 )
 

@@ -23,6 +23,9 @@ class DataManager(app: Application): AndroidViewModel(app) {
         viewModelScope.launch {
             menu = API.menuService.fetchMenu()
         }
+//        db.collection("users").get().addOnSuccessListener {
+//            menu = it.toObjects<Category>()
+//        }
     }
 
     fun cartAdd(product: Product){

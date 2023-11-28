@@ -24,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,8 +35,6 @@ import com.armaan.coffeemasters.DataManager
 import com.armaan.coffeemasters.Product
 import com.armaan.coffeemasters.Routes
 import com.armaan.coffeemasters.sign_in.AuthUIClient
-import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.Primary
 import kotlinx.coroutines.launch
 
 fun Double.format(digits: Int) = "%.${digits}f".format(this)
@@ -52,7 +49,9 @@ fun MenuPage(
 ) {
     val scope = rememberCoroutineScope()
 
-    LazyColumn{
+    LazyColumn(
+        modifier = Modifier.background(MaterialTheme.colorScheme.background)
+    ){
         items(dataManager.menu) {
             Divider()
             Box(
@@ -61,7 +60,6 @@ fun MenuPage(
             ){
                 Text(
                     text = it.name,
-                    color = Primary,
                     modifier = Modifier
                         .padding(10.dp, 20.dp, 10.dp, 10.dp),
                     style = MaterialTheme.typography.headlineMedium,
@@ -76,7 +74,7 @@ fun MenuPage(
                     ),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
-                        .background(Color.White)
+                        .background(MaterialTheme.colorScheme.background)
                         .padding(12.dp)
                 ) {
                     ProductItem(product = product, onAdd = {
@@ -113,7 +111,7 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         AsyncImage(
             model = product.imageUrl,
@@ -138,8 +136,8 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
                     onAdd(product)
                           },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Alternative1,
-                    contentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.
                 )
             ) {
                 Text(text = "Add")
