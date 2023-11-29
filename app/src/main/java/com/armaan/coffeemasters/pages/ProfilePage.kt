@@ -11,12 +11,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.armaan.coffeemasters.sign_in.UserData
-import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.Alternative2
 
 @Composable
 fun ProfilePage(
@@ -36,7 +34,7 @@ fun ProfilePage(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
-            .background(Alternative2),
+            .background(MaterialTheme.colorScheme.background),
         shape = RoundedCornerShape(20.dp)
     ) {
         if(userData?.pfpUrl != null) {
@@ -57,7 +55,8 @@ fun ProfilePage(
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp,
                 softWrap = true,
-                overflow = TextOverflow.Clip
+                overflow = TextOverflow.Clip,
+                color = MaterialTheme.colorScheme.secondary
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -65,8 +64,8 @@ fun ProfilePage(
             onClick = onSignOut,
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Alternative1,
-                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.secondary
             )
         ) {
             Text(text = "Sign Out")

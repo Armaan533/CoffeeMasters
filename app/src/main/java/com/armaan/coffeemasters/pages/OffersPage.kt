@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,6 +39,7 @@ fun OffersPage() {
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Offer(title = "Early Coffee", description = "10% off. Offer valid from 6am to 9am.")
         Offer(title = "Welcome Gift", description = "25% off on your first order.")
@@ -83,7 +85,8 @@ fun Offer(title: String, description: String) {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .background(Alternative2)
-                    .padding(16.dp)
+                    .padding(16.dp),
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -92,7 +95,8 @@ fun Offer(title: String, description: String) {
                 text = description,
                 modifier = Modifier
                     .background(Alternative2)
-                    .padding(16.dp)
+                    .padding(16.dp),
+                color = MaterialTheme.colorScheme.secondary
                 //            style = MaterialTheme.typography.h6
             )
         }

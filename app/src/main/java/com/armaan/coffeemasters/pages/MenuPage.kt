@@ -63,7 +63,8 @@ fun MenuPage(
                     modifier = Modifier
                         .padding(10.dp, 20.dp, 10.dp, 10.dp),
                     style = MaterialTheme.typography.headlineMedium,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
             it.products.forEach{ product ->
@@ -128,8 +129,14 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
                 .fillMaxWidth()
         ) {
             Column {
-                Text(text = product.name, fontWeight = FontWeight.Bold)
-                Text(text = "$${product.price.format(2)} ea")
+                Text(
+                    text = product.name, fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary
+                )
+                Text(
+                    text = "$${product.price.format(2)}",
+                    color = MaterialTheme.colorScheme.secondary
+                )
             }
             Button(
                 onClick = {
@@ -137,7 +144,7 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
                           },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.
+                    contentColor = MaterialTheme.colorScheme.secondary
                 )
             ) {
                 Text(text = "Add")

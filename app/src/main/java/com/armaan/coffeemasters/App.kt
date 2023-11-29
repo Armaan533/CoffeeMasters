@@ -47,7 +47,7 @@ import com.armaan.coffeemasters.pages.SignInPage
 import com.armaan.coffeemasters.sign_in.AuthUIClient
 import com.armaan.coffeemasters.sign_in.SignInViewModel
 import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.Primary
+import com.armaan.coffeemasters.ui.theme.Ternary
 import kotlinx.coroutines.launch
 
 
@@ -84,7 +84,7 @@ fun App(
             TopAppBar(
                 title = { AppTitle() },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Primary
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
                 )
         },
@@ -125,8 +125,8 @@ fun App(
                                 selectedIconColor = Alternative1,
                                 selectedTextColor = Alternative1,
                                 indicatorColor = MaterialTheme.colorScheme.primary,
-                                unselectedIconColor = MaterialTheme.colorScheme.tertiary,
-                                unselectedTextColor = MaterialTheme.colorScheme.tertiary
+                                unselectedIconColor = Ternary,
+                                unselectedTextColor = Ternary
                             )
                         )
                     }

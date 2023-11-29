@@ -22,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -42,7 +41,7 @@ fun OrderPage(dataManager: DataManager, navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.background)
         ){
             Image(
                 painter = painterResource(id = R.drawable.empty_cart),
@@ -61,8 +60,8 @@ fun OrderPage(dataManager: DataManager, navController: NavController) {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    contentColor = Color.White,
-                    containerColor = MaterialTheme.colorScheme.primary
+                    contentColor = MaterialTheme.colorScheme.secondary,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
                 ),
             ) {
                 Text(text = "Go to Menu")
@@ -87,11 +86,13 @@ fun OrderPage(dataManager: DataManager, navController: NavController) {
                 ){
                     Text(
                         text = "Total Amount",
-                        modifier = Modifier.width(150.dp)
+                        modifier = Modifier.width(150.dp),
+                        color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
                         text = "$${totalSum(dataManager.cart).format(2)}",
-                        modifier = Modifier.width(50.dp)
+                        modifier = Modifier.width(50.dp),
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
             }

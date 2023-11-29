@@ -31,8 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.armaan.coffeemasters.R
 import com.armaan.coffeemasters.sign_in.SignInState
-import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.Alternative2
 
 @Composable
 fun SignInPage(
@@ -56,7 +54,7 @@ fun SignInPage(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(Alternative2)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Image(
             painter = painterResource(id = R.drawable.cat),
@@ -76,8 +74,8 @@ fun SignInPage(
             onClick = onSignInClick,
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Alternative1
-//                contentColor = Color.White
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.secondary
             )
         ) {
             Icon(
