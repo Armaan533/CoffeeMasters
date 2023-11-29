@@ -1,6 +1,7 @@
 package com.armaan.coffeemasters.pages
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -112,6 +114,11 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .border(
+                width = 3.dp,
+                color = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(12.dp)
+            )
             .background(MaterialTheme.colorScheme.background)
     ) {
         AsyncImage(
@@ -121,6 +128,8 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(180.dp)
+                .clip(RoundedCornerShape(12.dp)),
+            alignment = Alignment.TopCenter
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

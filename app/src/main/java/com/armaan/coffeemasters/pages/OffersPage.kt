@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.armaan.coffeemasters.R
 import com.armaan.coffeemasters.ui.theme.Alternative2
+import com.armaan.coffeemasters.ui.theme.TextLight
 
 //  comp+tab -> snippet for a composable function
 //  prev+tab -> snippet for a preview composable function
@@ -86,7 +87,7 @@ fun Offer(title: String, description: String) {
                 modifier = Modifier
                     .background(Alternative2)
                     .padding(16.dp),
-                color = MaterialTheme.colorScheme.secondary
+                color = TextLight
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -96,7 +97,7 @@ fun Offer(title: String, description: String) {
                 modifier = Modifier
                     .background(Alternative2)
                     .padding(16.dp),
-                color = MaterialTheme.colorScheme.secondary
+                color = TextLight
                 //            style = MaterialTheme.typography.h6
             )
         }

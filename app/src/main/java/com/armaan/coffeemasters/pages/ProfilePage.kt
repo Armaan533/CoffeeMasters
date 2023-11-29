@@ -1,6 +1,7 @@
 package com.armaan.coffeemasters.pages
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,6 +44,7 @@ fun ProfilePage(
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(120.dp)
+                    .padding(start = 20.dp, top = 20.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center
@@ -56,19 +58,24 @@ fun ProfilePage(
                 fontSize = 20.sp,
                 softWrap = true,
                 overflow = TextOverflow.Clip,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.secondary,
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
-        Button(
-            onClick = onSignOut,
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.secondary
-            )
-        ) {
-            Text(text = "Sign Out")
+        Row {
+            Button(
+                onClick = onSignOut,
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.secondary
+                ),
+                modifier = Modifier.padding(start = 20.dp, top = 10.dp, bottom = 20.dp)
+            ) {
+                Text(text = "Sign Out")
+            }
+
         }
     }
 }
