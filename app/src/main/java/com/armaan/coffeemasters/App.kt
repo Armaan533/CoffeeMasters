@@ -46,8 +46,6 @@ import com.armaan.coffeemasters.pages.ProfilePage
 import com.armaan.coffeemasters.pages.SignInPage
 import com.armaan.coffeemasters.sign_in.AuthUIClient
 import com.armaan.coffeemasters.sign_in.SignInViewModel
-import com.armaan.coffeemasters.ui.theme.Alternative1
-import com.armaan.coffeemasters.ui.theme.Ternary
 import kotlinx.coroutines.launch
 
 
@@ -122,11 +120,11 @@ fun App(
                                 )
                             },
                             colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = Alternative1,
-                                selectedTextColor = Alternative1,
+                                selectedIconColor = MaterialTheme.colorScheme.onTertiary,
+                                selectedTextColor = MaterialTheme.colorScheme.onTertiary,
                                 indicatorColor = MaterialTheme.colorScheme.primary,
-                                unselectedIconColor = Ternary,
-                                unselectedTextColor = Ternary
+                                unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+                                unselectedTextColor = MaterialTheme.colorScheme.tertiary
                             )
                         )
                     }
