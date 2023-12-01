@@ -21,37 +21,6 @@ class DataManager(app: Application): AndroidViewModel(app) {
         fetchData()
     }
 
-//    private fun fetchData() {
-//        viewModelScope.launch {
-//            menu = API.menuService.fetchMenu()
-//        }
-//        var name = ""
-//        var prod: List<Product> = emptyList()
-//        var m = menu.toMutableList()
-//        for (i in 0..4) {
-//            menuCollection.document("$i").get().addOnSuccessListener {
-//                name = it.get("name").toString()
-//            }
-//            menuCollection.document("$i").collection("product").get().addOnSuccessListener {
-//                prod = it.toObjects(Product::class.java).toMutableList()
-//            }
-//            m.add(
-//                Category(
-//                    name,
-//                    prod.toMutableList()
-//                )
-//            )
-//            menuCollection.document("$i").get().addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    if (task.result.exists()) {
-//                        name = menu.
-//                    }
-//                }
-//            }
-//        }
-//        menu = m.toTypedArray().toList()
-//        Log.d("menu", menu.toString())
-//    }
 
     private fun fetchData() {
         menuCollection.get().addOnCompleteListener { task ->
@@ -67,12 +36,6 @@ class DataManager(app: Application): AndroidViewModel(app) {
     fun getCart(userData: UserData) {
         cart = listOf()
         val collRef = userCollection.document(userData.userId).collection("cart")
-//        collRef.get().addOnSuccessListener {
-//            cart = it.toObjects(ItemInCart::class.java)
-//        }
-//            .addOnFailureListener {
-//                Log.d(null, it.message.toString())
-//            }
         collRef.get().addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 cart = task.result.toObjects(ItemInCart::class.java)
@@ -80,16 +43,6 @@ class DataManager(app: Application): AndroidViewModel(app) {
             }
         }
     }
-
-//    private fun refreshCart(user: UserData) {
-//        val cartColl = userCollection.document(user.userId).collection("cart")
-////        cart.forEach {
-////            if(cartColl.whereEqualTo("product.id", it.product?.id).get().result.isEmpty) {
-////                cartColl.add(it)
-////            }
-////        }
-//
-//    }
 
     fun cartAdd(product: Product, user: UserData){
         var found = false
@@ -100,8 +53,7 @@ class DataManager(app: Application): AndroidViewModel(app) {
                 cartColl.whereEqualTo(FieldPath.of("product", "id"),product.id).get().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val doc = task.result.documents[0]
-                        doc?.getDocumentReference("quantity")?.update("quantity", it.quantity)
-                        Log.i("cartUpdate", doc.toString())
+                        doc?.reference?.update("quantity", it.quantity)
                     }
                 }
                 found = true
@@ -109,19 +61,17 @@ class DataManager(app: Application): AndroidViewModel(app) {
         }
         if (!found) {
             cart = listOf(*cart.toTypedArray(), ItemInCart(product, 1))
+            cartColl.add(ItemInCart(product, 1))
         }
-
-//        refreshCart(user)
-
     }
 
     fun clear() {
         cart = listOf()
-//        refreshCart(user)
     }
 
 
     fun cartRemove(product: Product, user: UserData) {
+        val cartColl = userCollection.document(user.userId).collection("cart")
         val aux = cart.toMutableList()
         var multiple = false
         var q = 0
@@ -131,11 +81,19 @@ class DataManager(app: Application): AndroidViewModel(app) {
                 multiple = true
             }
         }
+        cartColl.whereEqualTo(FieldPath.of("product", "id"),product.id).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                task.result.documents[0].reference.delete()
+            }
+        }
+
         aux.removeAll{ it.product?.id == product.id}
-        cart = if(!multiple)
-            listOf(*aux.toTypedArray())
-        else
-            listOf(*aux.toTypedArray(), ItemInCart(product, q-1))
-//        refreshCart(user)
+        if(!multiple) {
+            cart = listOf(*aux.toTypedArray())
+        }
+        else {
+            cart = listOf(*aux.toTypedArray(), ItemInCart(product, q-1))
+            cartColl.add(ItemInCart(product, q-1))
+        }
     }
 }
