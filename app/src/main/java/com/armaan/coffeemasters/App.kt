@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -175,6 +176,10 @@ fun App(
             composable(Routes.SignInPage.route) {
                 val viewModel = viewModel<SignInViewModel>()
                 val state = viewModel.state.collectAsStateWithLifecycle()
+
+                BackHandler{
+                    navController.navigate(Routes.MenuPage.route)
+                }
                 
                 LaunchedEffect(key1 = Unit) {
                     if (authUIClient.getSignedInUser() != null) {
@@ -230,6 +235,7 @@ fun App(
 
             composable(Routes.ProfilePage.route) {
                 LaunchedEffect(key1 = Unit) {
+//                    Log.i("navbackstack", navController.previousBackStackEntry?.destination?.route!!)
                     if (authUIClient.getSignedInUser() == null) {
                         navController.navigate(Routes.SignInPage.route)
                     }
