@@ -50,6 +50,7 @@ fun MenuPage(
     navController: NavHostController
 ) {
     val scope = rememberCoroutineScope()
+    val user = authUIClient.getSignedInUser()
 
     LazyColumn(
         modifier = Modifier.background(MaterialTheme.colorScheme.background)
@@ -61,7 +62,7 @@ fun MenuPage(
                 contentAlignment = Alignment.Center
             ){
                 Text(
-                    text = it.name,
+                    text = it.name!!,
                     modifier = Modifier
                         .padding(10.dp, 20.dp, 10.dp, 10.dp),
                     style = MaterialTheme.typography.headlineMedium,
@@ -69,7 +70,7 @@ fun MenuPage(
                     color = MaterialTheme.colorScheme.secondary
                 )
             }
-            it.products.forEach{ product ->
+            it.products?.forEach{ product ->
                 ElevatedCard(
                     elevation = CardDefaults.cardElevation(
                         defaultElevation = 4.dp,
@@ -81,21 +82,20 @@ fun MenuPage(
                         .padding(12.dp)
                 ) {
                     ProductItem(product = product, onAdd = {
-                        if(authUIClient.getSignedInUser() != null) {
-                            dataManager.cartAdd(product)
-                             scope.launch{
+                        if(user != null) {
+                            dataManager.cartAdd(product, user)
+                            scope.launch{
                                 snackbarHostState.showSnackbar(
                                     message = "${product.name} added successfully to your cart",
                                     actionLabel = "Hide",
                                     duration = SnackbarDuration.Short
                                 )
-                        }
-                        }
-                        else {
+                            }
+                        } else {
                             navController.navigate(Routes.SignInPage.route)
                         }
                     },
-                        )
+                    )
                 }
             }
         }
@@ -122,7 +122,7 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
             .background(MaterialTheme.colorScheme.background)
     ) {
         AsyncImage(
-            model = product.imageUrl,
+            model = product.image,
             contentDescription = "Image for ${product.name}",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
@@ -139,11 +139,11 @@ fun ProductItem(product: Product, onAdd: (Product)->Unit) {
         ) {
             Column {
                 Text(
-                    text = product.name, fontWeight = FontWeight.Bold,
+                    text = product.name!!, fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = "$${product.price.format(2)}",
+                    text = "$${product.price?.format(2)}",
                     color = MaterialTheme.colorScheme.secondary
                 )
             }

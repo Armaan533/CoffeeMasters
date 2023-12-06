@@ -32,10 +32,12 @@ import com.armaan.coffeemasters.ItemInCart
 import com.armaan.coffeemasters.Product
 import com.armaan.coffeemasters.R
 import com.armaan.coffeemasters.Routes
+import com.armaan.coffeemasters.sign_in.AuthUIClient
 
 
 @Composable
-fun OrderPage(dataManager: DataManager, navController: NavController) {
+fun OrderPage(dataManager: DataManager, navController: NavController, authUIClient: AuthUIClient) {
+    val user = authUIClient.getSignedInUser()
     if (dataManager.cart.isEmpty()) {
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -73,7 +75,7 @@ fun OrderPage(dataManager: DataManager, navController: NavController) {
 
             items(items = dataManager.cart){
                 CartItem(it = it, onDelete = { product ->
-                    dataManager.cartRemove(product)
+                    dataManager.cartRemove(product, user!!)
                 })
             }
             item {
@@ -104,7 +106,7 @@ private fun totalSum(cart: List<ItemInCart>) : Double
 {
     var sum = 0.0
     cart.forEach {
-        sum += (it.product.price * it.quantity)
+        sum += (it.product?.price!! * it.quantity!!)
     }
     return sum
 }
@@ -119,14 +121,14 @@ fun CartItem(it: ItemInCart, onDelete: (Product)->Unit) {
             .fillMaxWidth()
     ){
         Text(
-            text = it.product.name,
+            text = it.product?.name!!,
             modifier = Modifier.width(150.dp)
         )
 
         Text(text = "x${it.quantity}")
 
         Text(
-            text = "$${(it.quantity * it.product.price).format(2)}",
+            text = "$${(it.product!!.price?.let { it1 -> it.quantity?.times(it1) })?.format(2)}",
             modifier = Modifier.width(50.dp)
         )
         Image(
@@ -134,7 +136,7 @@ fun CartItem(it: ItemInCart, onDelete: (Product)->Unit) {
             contentDescription = "Delete",
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
             modifier = Modifier.clickable{
-                onDelete(it.product)
+                onDelete(it.product!!)
             }
         )
     }

@@ -145,6 +145,13 @@ fun App(
             modifier = Modifier.padding(paddingValues = paddingVal)
         ) {
             composable(Routes.MenuPage.route) {
+                LaunchedEffect(key1 = Unit) {
+                    val user = authUIClient.getSignedInUser()
+                    if (user != null) {
+                        dataManager.getCart(user)
+                    }
+                }
+
                 MenuPage(
                     dataManager = dataManager,
                     snackbarHostState = snackbarHostState,
@@ -161,7 +168,8 @@ fun App(
             composable(Routes.OrdersPage.route) {
                 OrderPage(
                     dataManager = dataManager,
-                    navController = navController
+                    navController = navController,
+                    authUIClient = authUIClient
                 )
             }
             composable(Routes.SignInPage.route) {
@@ -195,6 +203,7 @@ fun App(
                             "Sign-in successful",
                             Toast.LENGTH_LONG
                         ).show()
+                        authUIClient.getSignedInUser()?.let { it1 -> dataManager.getCart(it1) }
                         navController.navigate(navController.previousBackStackEntry?.destination?.route!!)
                         viewModel.resetState()
                     }
@@ -231,6 +240,7 @@ fun App(
                     onSignOut = {
                         lifecycleScope.launch {
                             authUIClient.googleSignOut()
+                            dataManager.clear()
                             Toast.makeText(
                                 applicationContext,
                                 "Signed Out",

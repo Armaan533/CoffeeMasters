@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.armaan.coffeemasters.sign_in.UserData
+import com.armaan.coffeemasters.UserData
 
 @Composable
 fun ProfilePage(
